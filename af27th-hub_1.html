@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="27th Ward">
+  <title>AF 27th Ward — Exec Secretary</title>
+  <style>
+    :root {
+      --navy:  #1B2B4B;
+      --royal: #2D4A8A;
+      --sky:   #4A7FC1;
+      --gold:  #C8973A;
+      --cream: #F7F4EF;
+      --white: #FFFFFF;
+      --muted: #8A8F9A;
+      --shadow: 0 2px 12px rgba(27,43,75,0.13);
+      --card-size: 160px; /* square card target size */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      background: var(--cream);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    /* ── CENTERED WRAPPER — caps width on desktop ── */
+    .page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--royal) 100%);
+      color: var(--white);
+      padding: 52px 20px 32px;
+      text-align: center;
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 20px;
+      background: var(--cream);
+      border-radius: 20px 20px 0 0;
+    }
+    .ward-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .header h1 { font-size: 26px; font-weight: 700; }
+    .header-sub { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+    .live-date {
+      display: inline-block; margin-top: 14px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px; padding: 5px 14px;
+      font-size: 12px; color: rgba(255,255,255,0.85); font-weight: 500;
+    }
+
+    /* ── SUNDAY BANNER ── */
+    .sunday-banner {
+      margin: 24px 0 0;
+      background: linear-gradient(120deg, var(--royal) 0%, var(--sky) 100%);
+      border-radius: 18px; padding: 18px 20px; color: white;
+      box-shadow: 0 4px 18px rgba(45,74,138,0.30);
+    }
+    .banner-label {
+      font-size: 10px; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 4px;
+    }
+    .banner-date { font-size: 20px; font-weight: 700; }
+    .banner-links { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .banner-btn {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white; font-size: 12px; font-weight: 600;
+      padding: 7px 14px; border-radius: 20px; text-decoration: none;
+    }
+    .banner-btn:active { background: rgba(255,255,255,0.30); }
+
+    /* ── SECTIONS ── */
+    .section { padding: 24px 0 0; }
+    .section-label {
+      font-size: 10px; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 12px; padding-left: 2px;
+    }
+
+    /* ── SQUARE GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* ── SQUARE CARD ── */
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 16px;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      -webkit-user-select: none;
+    }
+    .card:active, .card:hover {
+      transform: scale(0.97);
+      box-shadow: 0 1px 6px rgba(27,43,75,0.10);
+    }
+
+    /* ── WIDE CARD — spans both columns, no forced square ── */
+    .card.wide {
+      grid-column: span 2;
+      aspect-ratio: auto;
+      flex-direction: row;
+      align-items: center;
+      padding: 16px 18px;
+    }
+    .card.wide .icon { margin-bottom: 0; margin-right: 14px; }
+    .card.wide .card-text { flex: 1; }
+    .card.wide .chevron { color: #C8CDD8; font-size: 18px; }
+
+    /* ── ICON BUBBLE ── */
+    .icon {
+      width: 40px; height: 40px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px; flex-shrink: 0; margin-bottom: 10px;
+    }
+    .icon-blue   { background: #E8F0FE; }
+    .icon-green  { background: #E6F4EA; }
+    .icon-amber  { background: #FEF3E2; }
+    .icon-navy   { background: #E8EBF4; }
+    .icon-red    { background: #FCE8E6; }
+    .icon-teal   { background: #E0F4F4; }
+    .icon-purple { background: #F3E8FD; }
+
+    .card-title {
+      font-size: 13px; font-weight: 700;
+      color: var(--navy); line-height: 1.25;
+    }
+    .card-desc {
+      font-size: 11px; color: var(--muted);
+      margin-top: 2px; line-height: 1.3;
+    }
+    .card.wide .card-title { font-size: 15px; }
+    .card.wide .card-desc  { font-size: 12px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center; padding: 28px 0 0;
+      font-size: 11px; color: var(--muted);
+    }
+    .footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- HEADER — full bleed, no wrapper -->
+<div class="header">
+  <div class="ward-label">American Fork</div>
+  <h1>27th Ward</h1>
+  <div class="header-sub">Executive Secretary · Jayce Ross</div>
+  <div class="live-date" id="liveDate">Loading…</div>
+</div>
+
+<!-- EVERYTHING ELSE — centered, max 480px -->
+<div class="page">
+
+  <!-- SUNDAY BANNER -->
+  <div class="sunday-banner">
+    <div class="banner-label">Next Sacrament Meeting</div>
+    <div class="banner-date" id="nextSunday">—</div>
+    <div class="banner-links">
+      <a class="banner-btn" href="https://arnell.github.io/sacrament-meeting-agenda/" target="_blank">📄 Program</a>
+      <a class="banner-btn" href="https://docs.google.com/spreadsheets/d/1djtD9gboAvp6Qf23BQaPwmD2dyPPdcTnUq4vuCKD26U/edit?gid=0#gid=0" target="_blank">🙏 Prayers</a>
+      <a class="banner-btn" href="https://lcr.churchofjesuschrist.org/" target="_blank">⛪ LCR</a>
+    </div>
+  </div>
+
+  <!-- PRAYER & SACRAMENT -->
+  <div class="section">
+    <div class="section-label">Prayer &amp; Sacrament</div>
+    <div class="card-grid">
+
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1djtD9gboAvp6Qf23BQaPwmD2dyPPdcTnUq4vuCKD26U/edit?gid=0#gid=0" target="_blank">
+        <div class="icon icon-blue">🙏</div>
+        <div>
+          <div class="card-title">Prayer Assignments</div>
+          <div class="card-desc">Suggest &amp; confirm</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://arnell.github.io/sacrament-meeting-agenda/" target="_blank">
+        <div class="icon icon-amber">📄</div>
+        <div>
+          <div class="card-title">Sacrament Program</div>
+          <div class="card-desc">This week's program</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1G2bSg2dUwywFV0hE2XiEt1pz2LZLj07vKYPhaE_4tkc/edit?gid=852730030#gid=852730030" target="_blank">
+        <div class="icon icon-purple">🎤</div>
+        <div>
+          <div class="card-title">Speaker List</div>
+          <div class="card-desc">Topics &amp; history</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1ToaOLx-iX4itRO5invoV3TXuJNaWId3eKuXmlgf1qTo/edit?gid=1012323734#gid=1012323734" target="_blank">
+        <div class="icon icon-teal">📅</div>
+        <div>
+          <div class="card-title">Meeting Schedule</div>
+          <div class="card-desc">Leadership calendar</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- RECORDS & ADMIN -->
+  <div class="section">
+    <div class="section-label">Records &amp; Admin</div>
+    <div class="card-grid">
+
+      <a class="card" href="https://docs.google.com/document/d/1CxOpsd3Yp-B_mscV-_J2KcTgyCHf0ldhMVTvW0lXhYs/edit?tab=t.0" target="_blank">
+        <div class="icon icon-navy">📝</div>
+        <div>
+          <div class="card-title">Bishopric Minutes</div>
+          <div class="card-desc">Rolling agenda</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://drive.google.com/drive/folders/0BwpMtd6isS_0dVZFNHhZOWxwRU0?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto&resourcekey=0-3r5hoiucBNiEL4goqwHzoA" target="_blank">
+        <div class="icon icon-amber">🗂️</div>
+        <div>
+          <div class="card-title">Ward Drive</div>
+          <div class="card-desc">AF 27th folder</div>
+        </div>
+      </a>
+
+      <a class="card wide" href="https://lcr.churchofjesuschrist.org/mlt/records/member-list?lang=eng" target="_blank">
+        <div class="icon icon-green">👥</div>
+        <div class="card-text">
+          <div class="card-title">Ward Directory</div>
+          <div class="card-desc">Full member list in LCR</div>
+        </div>
+        <div class="chevron">›</div>
+      </a>
+
+      <a class="card wide" href="https://lcr.churchofjesuschrist.org/" target="_blank">
+        <div class="icon icon-red">⛪</div>
+        <div class="card-text">
+          <div class="card-title">LCR</div>
+          <div class="card-desc">Callings · reports · interviews</div>
+        </div>
+        <div class="chevron">›</div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    AF 27th Ward · 2026<br>
+    <a href="https://arnell.github.io/sacrament-meeting-agenda/" target="_blank">↗ Legacy Sacrament Program</a>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  var now = new Date();
+  document.getElementById('liveDate').textContent = now.toLocaleDateString('en-US', {
+    weekday:'long', month:'long', day:'numeric', year:'numeric'
+  });
+  var d = new Date();
+  var day = d.getDay();
+  d.setDate(d.getDate() + (day === 0 ? 0 : 7 - day));
+  document.getElementById('nextSunday').textContent = d.toLocaleDateString('en-US', {
+    weekday:'long', month:'long', day:'numeric'
+  });
+</script>
+
+</body>
+</html>
